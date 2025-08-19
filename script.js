@@ -5,6 +5,7 @@ const buttons = {
   moves: qsa("article.moves button")
 }
 const articles = {
+  main: qs("article.main"),
   choose: qs("article.choose"),
   ethan: qs("article.ethan"),
   user: qs("article.user"),
@@ -185,9 +186,10 @@ function choose() {
   console.log("Chose " + pokemon.name);
 
   //show articles
-  articles.choose.style.display = "none";
+  articles.main.style.display = "none";
   articles.battle.style.display = "block";
   articles.user.style.display = "block";
+  articles.ethan.style.display = "block";
   
 
   //populate

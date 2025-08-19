@@ -5,16 +5,59 @@ html {
 
 body{
   margin: 0 auto;
-  background-color: gray;
+  background-color: #dfd49e;
   width: 500px;
   position: relative;
+  display: flex;
+  border: #023763 8px solid;
+  margin-top: 10px;
+  padding: 20px;
   script {
     display: none;
   };
 }
+img.me {
+  width: 430px;
+}
+
+article.main {
+  padding: 5px;
+  * {
+    display: block;
+    margin: 20px auto;
+    
+  }
+  article.pic-frame {
+    background-color: #023763;
+    padding: 8px;
+    width: min-content;
+    img.me {
+      margin: 0 auto;
+    }
+  }
+  a {
+    display: inline;
+  }
+  h1, h2 {
+    width: fit-content;
+  }
+  h1 {
+    font-size: 30px;
+    color: #023763;
+  }
+  article.choose {
+    margin-top: 50px;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    width: fit-content;
+  }
+}
 
 article.ethan {
   position: relative;
+  display: none;
   img.pokemon {
     width: 500px;
     margin: 0;
@@ -57,6 +100,8 @@ article.ethan {
   }
 }
 
+
+
 article.user, article.battle {
   display: none;
 }
@@ -68,3 +113,4 @@ h3.hp {
   padding: 2px;
   width: fit-content;
 }
+
