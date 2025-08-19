@@ -57,3 +57,14 @@ article.ethan {
   }
 }
 
+article.user, article.battle {
+  display: none;
+}
+
+h3.hp {
+  color: green;
+  white-space: pre;
+  background-color: white;
+  padding: 2px;
+  width: fit-content;
+}
