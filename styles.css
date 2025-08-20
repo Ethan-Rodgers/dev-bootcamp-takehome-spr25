@@ -15,10 +15,11 @@ body{
   script {
     display: none;
   };
+  img.me {
+    width: 430px;
+  }
 }
-img.me {
-  width: 430px;
-}
+
 
 article.main {
   width: 500px;
@@ -54,81 +55,5 @@ article.main {
     display: flex;
     width: fit-content;
   }
-}
-
-article.ethan {
-  position: relative;
-  display: none;
-  img.pokemon {
-    width: 500px;
-    margin: 0;
-  }
-  img.me {
-    width: 430px;
-    left: 35px;
-    top: 130px;
-    position: absolute;
-  }
-  p.name {
-    position: absolute;
-    left: 80px;
-    top: 95px;
-
-    background-color: gray;
-    padding: 0 1px;
-    font-size: 14px;
-    font-weight: bold;
-    font-family: Courier, monospace;
-    -webkit-transform: scale(0.9, 1.6);
-
-  }
-
-  div.description {
-    margin-top: 0;
-    padding: 10px 20px;
-    * {
-      color: white;
-    }
-    h1, h2 {
-      display: block;
-      width: fit-content;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    h2 {
-      font-size: 20px;
-    }
-  }
-}
-
-article.user img {
-  width: 500px;
-}
-
-article.user, article.battle {
-  display: none;
-}
-
-
-article.battle {
-  padding: 20px;
-  article.moves {
-    width: 200px;
-    button {
-      margin: 0 auto;
-    }
-  }
-  h3.messages {
-    margin-top: 150px;
-    width: 240px;
-  }
-}
-
-h3.hp{
-  color: green;
-  white-space: pre;
-  background-color: white;
-  padding: 2px;
-  width: fit-content;
 }
 
