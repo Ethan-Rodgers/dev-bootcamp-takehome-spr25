@@ -17,103 +17,107 @@ const texts = {
     user: qs("h3.user-hp"),
     ethan: qs("h3.ethan-hp")
   },
-  messages: qs("h3.messages")
+  messages: qs("h3.messages"),
+  userPkmnLabel: qs("article.user h1")
+}
+const imgs = {
+  userPkmn: qs("img.user")
 }
 
 
 const pkmnDb = {
   c: {
     name: "Charmander",
-    types: ["fi"],
+    type: "Fire",
     hp: 600,
     abbrev: 'c',
     moves: [
       {
         name: "Ember",
-        type: "fi",
+        type: "Fire",
         power: 50,
         mult: 1
       },
       {
         name: "Rock throw",
-        type: "ro",
+        type: "Rock",
         power: 60,
         mult: 1
       },
       {
         name: "Superpower",
-        type: "fi",
+        type: "Fighting",
         power: 40,
         mult: 0.5
       },
       {
-        name: "Accept application",
-        type: "no",
-        power: 999,
+        name: "Elusive code bug",
+        type: "Normal",
+        power: 150,
         mult: 2
       },
     ]
   },
   s: {
     name: "Squirtle",
-    types: ["wa"],
+    type: "Water",
     hp: 500,
     abbrev: 's',
     moves: [
       {
         name: "Water gun",
-        type: "wa",
+        type: "Water",
         power: 50,
         mult: 1
       },
       {
         name: "Fury cutter",
-        type: "bu",
+        type: "Bug",
         power: 60,
         mult: 2
       },
       {
         name: "Pound",
-        type: "no",
+        type: "Normal",
         power: 40,
         mult: 1
       },
       {
-        name: "Accept application",
-        type: "no",
-        power: 999,
+        name: "Eye strain",
+        type: "Normal",
+        power: 150,
         mult: 2
       },
     ]
   },
   b: {
     name: "Bulbasaur",
-    types: ["gr"],
+    type: "Grass",
     hp: 600,
     abbrev: 'b',
     moves: [
       {
         name: "Branch poke",
-        type: "gr",
+        type: "Grass",
         power: 50,
         mult: 1
       },
       {
         name: "Confusion",
-        type: "ps",
+        type: "Psychic",
         power: 60,
         mult: 0.5
       },
       {
         name: "Curse",
-        type: "gh",
+        type: "Ghost",
         power: 40,
         mult: 2
       },
       {
-        name: "Accept application",
-        type: "no",
-        power: 999,
+        name: "Large social gathering",
+        type: "Normal",
+        power: 150,
         mult: 2
       },
     ]
@@ -195,42 +199,46 @@ function choose() {
   //populate
   hp.user = pokemon.hp;
   texts.hpLabel.textContent = `${pokemon.name} HP`;
+  texts.userPkmnLabel.textContent = `${pokemon.name} ----- Type: ${pokemon.type}`;
   texts.hp.user.textContent = "/".repeat(Math.ceil(20.0 * hp.user / pokemon.hp)) + ` ${hp.user}/${pokemon.hp}`;
   texts.hp.ethan.textContent = "/".repeat(Math.ceil(20.0 * hp.ethan / ethan.hp)) + ` ${hp.ethan}/${ethan.hp}`;
   for (let i = 0; i < 4; i++) {
     const move = pokemon.moves[i]
     buttons.moves[i].textContent = `${move.name} - ${move.type}, power=${move.power}`
   }
+  imgs.userPkmn.src = `img/${pokemon.abbrev}.png`
 }
 
 let currentTurn = false;
 async function startTurn() {
-  if (state != 1) return;
+  if (state != 1 || currentTurn) return;
   currentTurn = true;
 
   //Ethan's move
   const ethanMove = ethan.moves[Math.floor(Math.random() * ethan.moves.length)];
-  console.log(ethanMove);
+  // console.log(ethanMove);
   await show(`Ethan Rodgers used ${ethanMove.name}`);
   hp.user = Math.max(0, hp.user - ethanMove.power * ethanMove.mult[pokemon.abbrev]);
   await updateHpBar();
-  if (ethanMove.mult[pokemon.abbrev] == 2) show("It's super effective!");
-  else if (ethanMove.mult[pokemon.abbrev] == 0.5) show("It's not very effective...");
+  console.log("Mult: " + ethanMove.mult[pokemon.abbrev]);
+  if (ethanMove.mult[pokemon.abbrev] === 2) await show("It's super effective!");
+  else if (ethanMove.mult[pokemon.abbrev] === 0.5) await show("It's not very effective...");
 
   //check win
-  checkWin();
+  if(checkWin()) return;
 
   //User's move
   const move = pokemon.moves[Number(this.dataset.i)];
-  console.log(move);
+  // console.log(move);
   await show(`${pokemon.name} used ${move.name}`);
   hp.ethan = Math.max(0, hp.ethan - move.power * move.mult);
   await updateHpBar();
-  if (move.mult == 2) show("It's super effective!");
-  else if (move.mult == 0.5) show("It's not very effective...");
+  console.log("Mult: " + move.mult);
+  if (move.mult === 2) await show("It's super effective!");
+  else if (move.mult === 0.5) await show("It's not very effective...");
 
   //check win
-  checkWin();
+  if(checkWin()) return;
 
 
   currentTurn = false;
@@ -239,18 +247,21 @@ async function startTurn() {
     if (hp.user == 0) {
       state = 2
       show(`${pokemon.name} fainted.`);
+      return true;
     }
     else if (hp.ethan == 0) {
       state = 2
       show(`The opposing Ethan Rodgers fainted.`);
+      return true;
     }
   }
 }
 
 async function show(txt) {
-  texts.messages.textContent = txt;
+  console.log("show")
+  texts.messages.textContent = "" + txt;
   await new Promise((resolve, reject) => setTimeout(resolve, 2000));
-  texts.messages.textContent = "-";
+  texts.messages.textContent = "";
   await new Promise((resolve, reject) => setTimeout(resolve, 500));
 }
 

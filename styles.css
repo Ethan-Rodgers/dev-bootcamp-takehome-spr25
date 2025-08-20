@@ -6,7 +6,7 @@ html {
 body{
   margin: 0 auto;
   background-color: #dfd49e;
-  width: 500px;
+  width: fit-content;
   position: relative;
   display: flex;
   border: #023763 8px solid;
@@ -21,6 +21,7 @@ img.me {
 }
 
 article.main {
+  width: 500px;
   padding: 5px;
   * {
     display: block;
@@ -65,13 +66,13 @@ article.ethan {
   img.me {
     width: 430px;
     left: 35px;
-    top: 60px;
+    top: 130px;
     position: absolute;
   }
   p.name {
     position: absolute;
     left: 80px;
-    top: 25px;
+    top: 95px;
 
     background-color: gray;
     padding: 0 1px;
@@ -100,13 +101,30 @@ article.ethan {
   }
 }
 
-
+article.user img {
+  width: 500px;
+}
 
 article.user, article.battle {
   display: none;
 }
 
-h3.hp {
+
+article.battle {
+  padding: 20px;
+  article.moves {
+    width: 200px;
+    button {
+      margin: 0 auto;
+    }
+  }
+  h3.messages {
+    margin-top: 150px;
+    width: 240px;
+  }
+}
+
+h3.hp{
   color: green;
   white-space: pre;
   background-color: white;
